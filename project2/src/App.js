@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Navbar from './components/Navbar'
+import News from './components/News'
 import {
   BrowserRouter as Router,
   Route,
@@ -11,6 +12,8 @@ export default class App extends Component {
     return (
       <Router>
         <Navbar/>
+        <News/>
+      
       </Router>
     )
   }
