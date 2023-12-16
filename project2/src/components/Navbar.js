@@ -15,7 +15,9 @@ const Navbar = () => {
                 <Link to="#" className='menubars'>
                     <FontAwesomeIcon icon={icon.faBars} size='xl' onClick={showSidebar} />
                 </Link>
-                <img className='marvellogo' src={logo} alt='Logo'></img>
+                <div className='marvellogo'>
+                    <img className='marvellogoimg' src={logo} alt='Logo'></img>
+                </div>
             </div>
             <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
                 <ul className='nav-menu-items' onClick={showSidebar}>

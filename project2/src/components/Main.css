@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+img{
+    object-fit: cover;
+    max-height: 30vh;
+    width: 100%;
+}

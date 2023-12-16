@@ -3,8 +3,8 @@ import Navbar from './components/Navbar'
 import News from './components/News'
 import {
   BrowserRouter as Router,
-  Route,
-  Routes
+  // Route,
+  // Routes
 } from "react-router-dom";
 
 export default class App extends Component {
