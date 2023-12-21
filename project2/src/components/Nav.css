@@ -21,14 +21,14 @@ nav{
     background-color:var(--mainColor);
     z-index: 1;
 }
-.marvellogo{
+.Newslogo{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.marvellogoimg{
-    width: 50%;
+.Newslogoimg{
+    width: 20%;
 
 }
 .logo{
@@ -45,7 +45,7 @@ nav{
     margin-left: 2rem;
     font-size: 2rem;
     background: none;
-    color: var(--optioncolor);
+    color: var(--textcolor);
 }
 
 .nav-menu {
@@ -87,7 +87,7 @@ nav{
 }
 
 .nav-text a:hover {
-    background-color: var(--optioncolor);
+    background-color: var(--secondarycolor);
 }
 
 .nav-menu-items {

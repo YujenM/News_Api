@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as icon from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import {navbarinfo} from './Navbarinfo'
-import logo from './Images/Marvellogo.png'
+import logo from './Images/newsicon.jpg'
 import './Nav.css'
 
 const Navbar = () => {
@@ -15,8 +15,8 @@ const Navbar = () => {
                 <Link to="#" className='menubars'>
                     <FontAwesomeIcon icon={icon.faBars} size='xl' onClick={showSidebar} />
                 </Link>
-                <div className='marvellogo'>
-                    <img className='marvellogoimg' src={logo} alt='Logo'></img>
+                <div className='Newslogo'>
+                    <img className='Newslogoimg' src={logo} alt='Logo'></img>
                 </div>
             </div>
             <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
