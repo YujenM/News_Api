@@ -8,3 +8,41 @@ img{
     max-height: 30vh;
     width: 100%;
 }
+.newstitle{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.info{
+    width: 50vw;
+
+}
+.newsdescription{
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 2px 0 0 10px;
+}
+.newsbtn{
+    
+    text-align: center;
+    font-size: 1.8rem;
+    margin: 3% 40%;
+    width: 10vw;
+}
+
+@media screen and (max-width:700px){
+    .info{
+        margin: 0 20% 0 0;
+        width: 100vw;
+        background-color: aqua;
+    }
+}
+/* News */
+
+.Newsheading{
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}

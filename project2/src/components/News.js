@@ -16,7 +16,7 @@ export class News extends Component {
         
     }
     async componentDidMount(){
-        let newsurl=`https://newsapi.org/v2/top-headlines?c&apiKey=66ee75d845bb4d629c30a6135c00e283&page=1&q=top&pagesize=20`
+        let newsurl=`https://newsapi.org/v2/top-headlines?c&apiKey=66ee75d845bb4d629c30a6135c00e283&page=1&q=top&pagesize=10`
         let data=await fetch(newsurl);
         let parseddata=await data.json()
         console.log(parseddata)
@@ -28,7 +28,7 @@ export class News extends Component {
         if(this.state.page+1>Math.ceil(this.state.totalResults/20)){
 
         }else{
-            let newsurl=`https://newsapi.org/v2/top-headlines?c&apiKey=66ee75d845bb4d629c30a6135c00e283&page=${this.state.page+1}&q=top&pagesize=20`;
+            let newsurl=`https://newsapi.org/v2/top-headlines?c&apiKey=66ee75d845bb4d629c30a6135c00e283&page=${this.state.page+1}&q=top&pagesize=10`;
             let data=await fetch(newsurl);
             let parseddata=await data.json()
             this.setState({
@@ -40,7 +40,7 @@ export class News extends Component {
     }
     previouspage=async()=>{
         
-        let newsurl=`https://newsapi.org/v2/top-headlines?c&apiKey=66ee75d845bb4d629c30a6135c00e283&page=${this.state.page-1}&q=top&pagesize=20`;
+        let newsurl=`https://newsapi.org/v2/top-headlines?c&apiKey=66ee75d845bb4d629c30a6135c00e283&page=${this.state.page-1}&q=top&pagesize=10`;
         let data=await fetch(newsurl);
         let parseddata=await data.json()
         this.setState({
@@ -53,14 +53,12 @@ export class News extends Component {
         return ( 
             <>
                 <div className='container mx-auto'>
-                    <h1 >Top Headlines</h1>
+                    <h1 className='Newsheading'>Top Headlines</h1>
                 </div>
-                <div className='container mx-auto grid lg:grid-cols-3 md:grid-cols-2  gap-2'>
+                <div>
                 {  
                     this.state.articles.map((Element)=>{
-                        const truncatedTitle = Element.title && Element.title.length > 40? `${Element.title.slice(0, 40)}...`: Element.title;
-                        const truncateddescription = Element.description && Element.description.length > 128? `${Element.title.slice(0, 128)}.........`: Element.description;
-                        return <NewsItem key={Element.url} title={truncatedTitle} getdescription={truncateddescription} imgurl={Element.urlToImage} newsurl={Element.url}/>
+                        return <NewsItem key={Element.url} title={Element.title} getdescription={Element.description} imgurl={Element.urlToImage} newsurl={Element.url}/>
                     })
                 }
                 </div>
