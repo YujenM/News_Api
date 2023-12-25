@@ -1,48 +1,78 @@
+/* Main.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-img{
+img {
     object-fit: cover;
     max-height: 30vh;
     width: 100%;
 }
-.newstitle{
+
+.newstitle {
     text-align: center;
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 20px;
 }
-.info{
-    width: 50vw;
 
+.info {
+    width: 50vw;
 }
-.newsdescription{
+
+.newsdescription {
     text-align: center;
     font-size: 1.2rem;
     margin: 2px 0 0 10px;
 }
-.newsbtn{
-    
+
+.newsbtn {
     text-align: center;
-    font-size: 1.8rem;
+    font-size: 1rem;
     margin: 3% 40%;
-    width: 10vw;
 }
 
-@media screen and (max-width:700px){
-    .info{
-        margin: 0 20% 0 0;
-        width: 100vw;
-        background-color: aqua;
+@media screen and (max-width: 900px) {
+    .info {
+        margin: 0 5%;
+        width: 90vw;
+    }
+
+    .newsbtn {
+        width: 40%;
+        margin: 3% 30%;
+    }
+
+    .newstitle {
+        font-size: 1.2rem;
+    }
+
+    .newsdescription {
+        font-size: 1rem;
+    }
+
+    .newsbtn {
+        font-size: 0.9rem;
     }
 }
+
 /* News */
 
-.Newsheading{
+.Newsheading {
     text-align: center;
     font-size: 3rem;
     font-weight: 600;
     margin-bottom: 20px;
+}
+
+/* spinner */
+.loadinggif{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loader{
+    width: 20vw;
+    
 }

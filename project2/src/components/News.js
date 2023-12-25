@@ -1,10 +1,21 @@
 import React, { Component } from 'react'
 import NewsItem from './NewsItem'
 import './Main.css'
+import Spinner from './Spinner';
+import PropTypes from 'prop-types'
+
+
 // import Logo from './Images/marvel.jpg'
 
 export class News extends Component {
-    
+    static defualtProps={
+        pagesize:5,
+        category:'genral',
+    }
+    static propTypes={
+        pagesize:PropTypes.number,
+        category:PropTypes.string,
+    }    
     constructor(){
         super();
         console.log("hello i am a constructer")
@@ -16,36 +27,39 @@ export class News extends Component {
         
     }
     async componentDidMount(){
-        let newsurl=`https://newsapi.org/v2/top-headlines?c&apiKey=66ee75d845bb4d629c30a6135c00e283&page=1&q=top&pagesize=10`
+        let newsurl=`https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=66ee75d845bb4d629c30a6135c00e283&page=1&q=top&pagesize=${this.props.pagesize}`
+        this.setState({loading:true})
         let data=await fetch(newsurl);
         let parseddata=await data.json()
         console.log(parseddata)
-        this.setState({articles:parseddata.articles,totalResults:parseddata.totalResults})
+        this.setState({articles:parseddata.articles,totalResults:parseddata.totalResults,loading:false})
 
     }
     nextpage = async() => {
-        console.log("this is"+Math.ceil(this.state.totalResults/20))
-        if(this.state.page+1>Math.ceil(this.state.totalResults/20)){
-
-        }else{
-            let newsurl=`https://newsapi.org/v2/top-headlines?c&apiKey=66ee75d845bb4d629c30a6135c00e283&page=${this.state.page+1}&q=top&pagesize=10`;
+        console.log("this is"+Math.ceil(this.state.totalResults/this.props.pagesize))
+        if(!(this.state.page+1>Math.ceil(this.state.totalResults/this.props.pagesize))){
+            let newsurl=`https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=66ee75d845bb4d629c30a6135c00e283&page=${this.state.page+1}&q=top&pagesize=${this.props.pagesize}`;
+            this.setState({loading:true})
             let data=await fetch(newsurl);
             let parseddata=await data.json()
             this.setState({
                 page:this.state.page+1,
-                articles:parseddata.articles
+                articles:parseddata.articles,
+                loading:false
             })
         }
         
     }
     previouspage=async()=>{
         
-        let newsurl=`https://newsapi.org/v2/top-headlines?c&apiKey=66ee75d845bb4d629c30a6135c00e283&page=${this.state.page-1}&q=top&pagesize=10`;
+        let newsurl=`https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=66ee75d845bb4d629c30a6135c00e283&page=${this.state.page-1}&q=top&pagesize=${this.props.pagesize}`;
+        this.setState({loading:true})
         let data=await fetch(newsurl);
         let parseddata=await data.json()
         this.setState({
             page:this.state.page-1,
-            articles:parseddata.articles
+            articles:parseddata.articles,
+            loading:false
         })
     }
     
@@ -53,11 +67,12 @@ export class News extends Component {
         return ( 
             <>
                 <div className='container mx-auto'>
-                    <h1 className='Newsheading'>Top Headlines</h1>
+                    <h1 className='Newsheading'>{this.props.topics}</h1>
+                    {this.state.loading && <Spinner/>}
                 </div>
                 <div>
                 {  
-                    this.state.articles.map((Element)=>{
+                    !this.state.loading && this.state.articles.map((Element)=>{
                         return <NewsItem key={Element.url} title={Element.title} getdescription={Element.description} imgurl={Element.urlToImage} newsurl={Element.url}/>
                     })
                 }
