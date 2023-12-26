@@ -5,8 +5,6 @@ import Spinner from './Spinner';
 import PropTypes from 'prop-types'
 
 
-// import Logo from './Images/marvel.jpg'
-
 export class News extends Component {
     static defaultProps={
         pagesize:5,
@@ -26,41 +24,27 @@ export class News extends Component {
         }
         
     }
-    async componentDidMount(){
-        let newsurl=`https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=5c55a1dcd895496da13b7bb267b4e159&page=1&pagesize=${this.props.pagesize}`
+    async updateNews(){
+        let newsurl=`https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=5c55a1dcd895496da13b7bb267b4e159&page=${this.state.page}&page=top&pagesize=${this.props.pagesize}`
         this.setState({loading:true})
         let data=await fetch(newsurl);
         let parseddata=await data.json()
         console.log(parseddata)
         this.setState({articles:parseddata.articles,totalResults:parseddata.totalResults,loading:false})
+    }
+    async componentDidMount(){
+        this.updateNews()
 
     }
     nextpage = async() => {
         console.log("this is"+Math.ceil(this.state.totalResults/this.props.pagesize))
-        if(!(this.state.page+1>Math.ceil(this.state.totalResults/this.props.pagesize))){
-            let newsurl=`https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=5c55a1dcd895496da13b7bb267b4e159&page=${this.state.page+1}&pagesize=${this.props.pagesize}`;
-            this.setState({loading:true})
-            let data=await fetch(newsurl);
-            let parseddata=await data.json()
-            this.setState({
-                page:this.state.page+1,
-                articles:parseddata.articles,
-                loading:false
-            })
-        }
+        this.setState({page:this.state.page+1})
+        this.updateNews()
         
     }
     previouspage=async()=>{
-        
-        let newsurl=`https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=5c55a1dcd895496da13b7bb267b4e159&page=${this.state.page-1}&pagesize=${this.props.pagesize}`;
-        this.setState({loading:true})
-        let data=await fetch(newsurl);
-        let parseddata=await data.json()
-        this.setState({
-            page:this.state.page-1,
-            articles:parseddata.articles,
-            loading:false
-        })
+        this.setState({page:this.state.page-1})
+        this.updateNews()
     }
     
     render(){
@@ -85,5 +69,4 @@ export class News extends Component {
             );
         }
 }
-
 export default News;
