@@ -4,9 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
-img {
+.newsimg img {
     object-fit: cover;
-    max-height: 30vh;
+    height: 40vh;
     width: 100%;
 }
 
@@ -32,11 +32,15 @@ img {
     font-size: 1rem;
     margin: 3% 40%;
 }
+.Newslogo img{
+    width: 5%;
+    margin: 0 50%;
+}
 
 @media screen and (max-width: 900px) {
     .info {
-        margin: 0 5%;
-        width: 90vw;
+        margin: 0 3%;
+        width: 90%;
     }
 
     .newsbtn {
@@ -54,6 +58,10 @@ img {
 
     .newsbtn {
         font-size: 0.9rem;
+    }
+    .Newslogo img{
+        width: 9vw;
+        
     }
 }
 
@@ -76,3 +84,4 @@ img {
     width: 20vw;
     
 }
+

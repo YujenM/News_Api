@@ -13,17 +13,22 @@ export class News extends Component {
     static propTypes={
         pagesize:PropTypes.number,
         category:PropTypes.string,
+    }
+    capitalletter=(string)=>{
+        return string.charAt(0).toUpperCase()+string.slice(1);
     }    
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         console.log("hello i am a constructer")
         this.state={
             articles:[],
             loading:false,
             page:1 
         }
+        document.title=`${this.capitalletter(this.props.category)}-News`
         
     }
+
     async updateNews(){
         let newsurl=`https://newsapi.org/v2/top-headlines?category=${this.props.category}&apiKey=5c55a1dcd895496da13b7bb267b4e159&page=${this.state.page}&page=top&pagesize=${this.props.pagesize}`
         this.setState({loading:true})
@@ -37,7 +42,6 @@ export class News extends Component {
 
     }
     nextpage = async() => {
-        console.log("this is"+Math.ceil(this.state.totalResults/this.props.pagesize))
         this.setState({page:this.state.page+1})
         this.updateNews()
         
@@ -46,6 +50,7 @@ export class News extends Component {
         this.setState({page:this.state.page-1})
         this.updateNews()
     }
+    description="Stay up-to-date with the latest breaking news from around the world. Explore comprehensive coverage of current events and important developments in this dynamic news update."
     
     render(){
         return ( 
@@ -57,7 +62,7 @@ export class News extends Component {
                 <div>
                 {  
                     !this.state.loading && this.state.articles.map((Element)=>{
-                        return <NewsItem key={Element.url} title={Element.title} getdescription={Element.description} imgurl={Element.urlToImage} newsurl={Element.url} author={Element.author} date={Element.publishedAt}/>
+                        return <NewsItem key={Element.url} title={Element.title} getdescription={!Element.description?this.description:Element.description} imgurl={Element.urlToImage} newsurl={Element.url} author={Element.author} date={Element.publishedAt}/>
                     })
                 }
                 </div>
