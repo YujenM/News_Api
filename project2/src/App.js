@@ -9,7 +9,7 @@ import {
 
 export default class App extends Component {
   render() {
-    let pagesize=15;
+    let pagesize=20;
     return (
       <Router>
         <Navbar/>
@@ -19,6 +19,7 @@ export default class App extends Component {
           <Route exact path="/science" element={<News key="science" topics="Science" pagesize={pagesize} category="science"/>}/>
           <Route exact path="/health" element={<News key="health" topics="Health" pagesize={pagesize} category="health"/>}/>
           <Route exact path="/sports" element={<News key="sports" topics="Sports" pagesize={pagesize} category="sports"/>}/>
+          <Route exact path="/technology" element={<News key="technology" topics="Technology" pagesize={pagesize} category="technology"/>}/>
         </Routes> 
       </Router>
     )

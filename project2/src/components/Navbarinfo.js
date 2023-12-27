@@ -37,6 +37,13 @@ export const navbarinfo=[
         icon : <FontAwesomeIcon icon={icon.faMedal} />,
         cName:'nav-text',
         
+    },
+    {
+        title:'Technology',
+        path: '/technology',
+        icon : <FontAwesomeIcon icon={icon.faWrench} />,
+        cName:'nav-text',
+        
     }
     
 ]
