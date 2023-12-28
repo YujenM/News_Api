@@ -3,6 +3,7 @@ import NewsItem from './NewsItem'
 import './Main.css'
 import Spinner from './Spinner';
 import PropTypes from 'prop-types'
+import InfiniteScroll from "react-infinite-scroll-component";
 
 
 export class News extends Component {
@@ -24,16 +25,16 @@ export class News extends Component {
         this.state={
             articles:[],
             loading:false,
-            page:1 
+            page:1 ,
+            totalResults:0
         }
         document.title=`${this.capitalletter(this.props.category)}-News`
         
     }
     
     async updateNews(){
-        // let apikey="66ee75d845bb4d629c30a6135c00e283"
-        let apikey="5c55a1dcd895496da13b7bb267b4e159"
-        let newsurl=`https://newsapi.org/v2/top-headlines?&category=${this.props.category}&country=us&apiKey=${apikey}&page=${this.state.page}&page=top&pagesize=${this.props.pagesize}`
+        
+        let newsurl=`https://newsapi.org/v2/top-headlines?&category=${this.props.category}&country=us&apiKey=${this.props.apikey}&page=${this.state.page}&page=top&pagesize=${this.props.pagesize}`
         this.setState({loading:true})
         let data=await fetch(newsurl);
         let parseddata=await data.json()
@@ -49,23 +50,20 @@ export class News extends Component {
         this.updateNews()
 
     }
-    nextpage = async() => {
-        
-        let check= this.state.page+1>Math.ceil(this.state.totalResults/this.props.pagesize)
-        console.log(this.state.totalResults)
-        console.log(this.props.pagesize)
-        if (check){
-
-        }else{
-            this.setState({page:this.state.page+1})
-            this.updateNews();
-        }
-        console.log("check"+check)
-    }
-    previouspage=async()=>{
-        this.setState({page:this.state.page-1})
-        this.updateNews()
-    }
+    fetchMoreData = async () => {
+        this.setState({ page: this.state.page + 1});
+        let newsurl = `https://newsapi.org/v2/top-headlines?&category=${this.props.category}&country=us&apiKey=${this.props.apikey}&page=${this.state.page+1}&page=top&pagesize=${this.props.pagesize}`;
+    
+        let data = await fetch(newsurl);
+        let parseddata = await data.json();
+        console.log(parseddata);
+    
+        this.setState({
+            articles: this.state.articles.concat(parseddata.articles),
+            totalResults: parseddata.totalResults,
+        });
+    };
+    
     description="Stay up-to-date with the latest breaking news from around the world. Explore comprehensive coverage of current events and important developments in this dynamic news update."
     
     render(){
@@ -75,18 +73,16 @@ export class News extends Component {
                     <h1 className='Newsheading'>{this.props.topics}</h1>
                     {this.state.loading && <Spinner/>}
                 </div>
-                <div>
-                    {  
-                        !this.state.loading && this.state.articles && this.state.articles.map((Element) => (
-                            <NewsItem key={Element.url} title={Element.title} getdescription={!Element.description ? this.description : Element.description} imgurl={Element.urlToImage} newsurl={Element.url} author={Element.author} date={Element.publishedAt} />
-                        ))
-                    }
+                <InfiniteScroll dataLength={this.state.articles.length} next={this.fetchMoreData} hasMore={this.state.articles.length !==this.state.totalResults} loader={<Spinner/>}>
+                    <div className='mb-4'>
+                        {  
+                            this.state.articles.map((Element) => (
+                                <NewsItem key={Element.url} title={Element.title} getdescription={!Element.description ? this.description : Element.description} imgurl={Element.urlToImage} newsurl={Element.url} author={Element.author} date={Element.publishedAt} />
+                            ))
+                        }
 
-                </div>
-                <div className='container mx-auto flex justify-center mt-5 mb-5 ' >
-                    <button className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-3"onClick={this.previouspage} disabled={this.state.page<=1}>Prev</button>
-                    <button disabled={this.state.page+1>Math.ceil(this.state.totalResults/this.props.pagesize)} className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-3 " onClick={this.nextpage} >Next</button>
-                </div>
+                    </div>
+                </InfiniteScroll>
             </>
             );
         }
