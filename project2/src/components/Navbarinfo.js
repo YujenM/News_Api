@@ -44,6 +44,7 @@ export const navbarinfo=[
         icon : <FontAwesomeIcon icon={icon.faWrench} />,
         cName:'nav-text',
         
-    }
+    },
+    
     
 ]
