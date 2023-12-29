@@ -14,10 +14,10 @@ Follow these steps to set up and run the News App on your local machine:
 
 1. **Clone the Repository:**
    ```
-     https://github.com/YujenM/News_Api.git
+   https://github.com/YujenM/News_Api.git
    ```
 
-2. ** Navigate to the project Directory**
+2. **Navigate to the project Directory**
   ```
     cd {Directory Name}
   ```
