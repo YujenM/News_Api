@@ -35,9 +35,6 @@ This is a simple News App built with React that fetches news articles from the [
 - **React:** The app is built using the React library for building user interfaces.
 - **News API:** The app fetches news data from the [News API](https://newsapi.org/).
 
-## Contributing
-
-If you'd like to contribute to the development of this News App, please follow the guidelines in the [CONTRIBUTING.md](CONTRIBUTING.md) file.
 
 ## License
 
